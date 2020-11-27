@@ -67,7 +67,7 @@ class PaymentView : FrameLayout {
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 url ?: return false
-                
+
                 if(checkResult(url)) view?.loadUrl("about:blank")
                 else view?.loadUrl(url)
 
