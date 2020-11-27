@@ -61,30 +61,29 @@ class PaymentView : FrameLayout {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                checkResult(view, url)
                 listener?.onLoadFinished()
+                if(url!=null) checkResult(url)
             }
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                return checkResult(view, url)
+                url ?: return false
+                
+                if(checkResult(url)) view?.loadUrl("about:blank")
+                else view?.loadUrl(url)
+
+                return false
             }
 
-            private fun checkResult(view: WebView?, url: String?): Boolean {
-                if (url == null) {
-                    return false
-                }
-                when {
+            private fun checkResult(url: String) = when {
                     url.contains("success") -> {
                         callSdk(url)
-                        view?.loadUrl("about:blank")
+                        true
                     }
                     url.contains("failure") -> {
                         callSdk(url)
-                        view?.loadUrl("about:blank")
+                        true
                     }
-                    else -> view?.loadUrl(url)
-                }
-                return true
+                    else -> false
             }
         }
     }
