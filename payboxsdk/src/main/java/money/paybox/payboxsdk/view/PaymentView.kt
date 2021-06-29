@@ -37,10 +37,10 @@ class PaymentView : FrameLayout {
     }
 
     fun loadPaymentPage(url: String, sucessOrFailure: (isSuccess: Boolean) -> Unit) {
-        if (url.startsWith("https://api.paybox.money") || url.startsWith("https://paybox.money") || url.startsWith("https://paybox.kz")) {
+        //if (url.startsWith("https://api.paybox.money") || url.startsWith("https://paybox.money") || url.startsWith("https://paybox.kz")) {
             this.webView.loadUrl(url)
             this.sOf = sucessOrFailure
-        }
+        //}
     }
     var listener: WebListener? = null
 
